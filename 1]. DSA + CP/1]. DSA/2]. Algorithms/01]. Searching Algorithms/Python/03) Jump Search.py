@@ -5,27 +5,24 @@ Detailed Explanation at : https://www.geeksforgeeks.org/jump-search/
 from math import floor, sqrt
 
 
-def jump_search(array, target):
+def jump_search1(array, target):
     # Best step value = root(n)
     step = floor(sqrt(array_len := len(array)))
 
     step_start = 0
-    step_end = step
+    step_end = 0
 
     while step_start < array_len:
-        if step_end > array_len:
-            step_end = array_len
+        step_end = min(step_start + step, array_len) 
 
-        if step_end > target:
+        if array[step_end-1] > target: 
             for index in range(step_start, step_end):
                 if array[index] == target:
                     return index
         else:
             step_start = step_end
-            step_end += step
 
     return None
-
 
 def verify(index, target):
     if index is not None:
